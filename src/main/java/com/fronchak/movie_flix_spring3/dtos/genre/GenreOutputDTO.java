@@ -11,7 +11,6 @@ public class GenreOutputDTO {
 	public GenreOutputDTO() {}
 	
 	public GenreOutputDTO(Long id, String name, String imageUrl) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.imageUrl = imageUrl;
