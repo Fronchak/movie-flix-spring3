@@ -21,16 +21,18 @@ public class Movie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(unique = true, nullable = false)
 	private String title;
 	
-	@Column(columnDefinition = "TEXT")
+	@Column(columnDefinition = "TEXT", nullable = false)
 	private String synopsis;
 	
-	@Column(name = "lauch_year")
+	@Column(name = "lauch_year", nullable = false)
 	private Integer lauchYear;
 	private Double rating;
 	
-	@Column(columnDefinition = "TEXT", name = "image_url")
+	@Column(columnDefinition = "TEXT", name = "image_url", nullable = false)
 	private String imageUrl;
 	
 	@ManyToMany

@@ -1,4 +1,4 @@
-package com.fronchak.movie_flix_spring3.validators.genre;
+package com.fronchak.movie_flix_spring3.validators.movie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,26 +7,26 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
-import com.fronchak.movie_flix_spring3.dtos.genre.GenreUpdateDTO;
-import com.fronchak.movie_flix_spring3.entities.Genre;
+import com.fronchak.movie_flix_spring3.dtos.movie.MovieUpdateDTO;
+import com.fronchak.movie_flix_spring3.entities.Movie;
 import com.fronchak.movie_flix_spring3.exceptions.FieldMessage;
-import com.fronchak.movie_flix_spring3.repositories.GenreRepository;
+import com.fronchak.movie_flix_spring3.repositories.MovieRepository;
 import com.fronchak.movie_flix_spring3.util.StringUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class GenreUpdateValidator implements ConstraintValidator<GenreUpdateValid, GenreUpdateDTO> {
+public class MovieUpdateValidator implements ConstraintValidator<MovieUpdateValid, MovieUpdateDTO> {
 
 	@Autowired
-	private GenreRepository repository;
+	private MovieRepository repository;
 	
 	@Autowired
 	private HttpServletRequest request;
 	
 	@Override
-	public boolean isValid(GenreUpdateDTO dto, ConstraintValidatorContext context) {
+	public boolean isValid(MovieUpdateDTO dto, ConstraintValidatorContext context) {
 		
 		List<FieldMessage> errors = new ArrayList<>();
 		
@@ -39,11 +39,11 @@ public class GenreUpdateValidator implements ConstraintValidator<GenreUpdateVali
 			return true;
 		}
 		
-		String name = dto.getName();
-		if(name != null && !name.isBlank()) {
-			Genre entity = repository.findByName(StringUtil.cleanString(name));
-			if(entity != null && !entity.getId().equals(id)) {
-				errors.add(new FieldMessage("name", "This name is already register"));
+		String title = dto.getTitle();
+		if(title != null && !title.isBlank()) {
+			Movie entity = repository.findByTitle(StringUtil.cleanString(title));
+			if(entity != null) {
+				errors.add(new FieldMessage("title", "This title is already register"));
 			}			
 		}
 
