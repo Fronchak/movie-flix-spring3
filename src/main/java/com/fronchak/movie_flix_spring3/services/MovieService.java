@@ -1,8 +1,12 @@
 package com.fronchak.movie_flix_spring3.services;
 
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +16,7 @@ import com.fronchak.movie_flix_spring3.dtos.movie.MovieInsertDTO;
 import com.fronchak.movie_flix_spring3.dtos.movie.MovieOutputDTO;
 import com.fronchak.movie_flix_spring3.dtos.movie.MovieSimpleOutputDTO;
 import com.fronchak.movie_flix_spring3.dtos.movie.MovieUpdateDTO;
+import com.fronchak.movie_flix_spring3.entities.Genre;
 import com.fronchak.movie_flix_spring3.entities.Movie;
 import com.fronchak.movie_flix_spring3.exceptions.DatabaseException;
 import com.fronchak.movie_flix_spring3.exceptions.ResourceNotFoundException;
@@ -68,8 +73,13 @@ public class MovieService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Page<MovieSimpleOutputDTO> findAll(String title, Integer idGenre, Double rating, Pageable pageable) {
-		Page<Movie> entities = movieRepository.findAll(pageable);
+	public Page<MovieSimpleOutputDTO> findAll(String title, Long idGenre, Double rating, Pageable pageable) {
+		Page<Movie> entities = movieRepository.findAllFiltered(rating, title, pageable);
+		if(!idGenre.equals(0L)) {
+			Genre genre = genreRepository.getReferenceById(idGenre);
+			entities = new PageImpl(entities.filter((entity) -> entity.getGenres().contains(genre)).get()
+					.collect(Collectors.toList()));
+		}
 		return mapper.convertEntitiesToSimpleDTOs(entities);
 	}
 	

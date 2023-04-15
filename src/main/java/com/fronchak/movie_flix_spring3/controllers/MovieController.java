@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,6 +23,7 @@ import com.fronchak.movie_flix_spring3.dtos.movie.MovieSimpleOutputDTO;
 import com.fronchak.movie_flix_spring3.dtos.movie.MovieUpdateDTO;
 import com.fronchak.movie_flix_spring3.services.MovieService;
 import com.fronchak.movie_flix_spring3.util.ConvertionUtil;
+import com.fronchak.movie_flix_spring3.util.StringUtil;
 
 import jakarta.validation.Valid;
 
@@ -53,8 +55,12 @@ public class MovieController {
 	}
 	
 	@GetMapping	
-	public ResponseEntity<Page<MovieSimpleOutputDTO>> findAll(Pageable pageable) {
-		Page<MovieSimpleOutputDTO> dtos = service.findAll(null, null, null, pageable);
+	public ResponseEntity<Page<MovieSimpleOutputDTO>> findAll(
+			@RequestParam(value = "title", defaultValue = "") String title,
+			@RequestParam(value = "idGenre", defaultValue = "0") Long idGenre,
+			@RequestParam(value = "rating", defaultValue = "0.0") Double rating,
+			Pageable pageable) {
+		Page<MovieSimpleOutputDTO> dtos = service.findAll(StringUtil.cleanString(title), idGenre, rating, pageable);
 		return ResponseEntity.ok().body(dtos);
 	}
 	
