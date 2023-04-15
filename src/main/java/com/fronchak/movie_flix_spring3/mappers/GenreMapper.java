@@ -1,5 +1,6 @@
 package com.fronchak.movie_flix_spring3.mappers;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,7 @@ public class GenreMapper {
 		return new GenreOutputDTO(entity);
 	}
 	
-	public List<GenreOutputDTO> convertEntitiesToDTOs(List<Genre> entities) {
+	public List<GenreOutputDTO> convertEntitiesToDTOs(Collection<Genre> entities) {
 		return entities.stream()
 				.map((entity) -> convertEntityToDTO(entity))
 				.collect(Collectors.toList());
