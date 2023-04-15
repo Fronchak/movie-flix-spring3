@@ -19,6 +19,9 @@ import com.fronchak.movie_flix_spring3.dtos.genre.GenreInsertDTO;
 import com.fronchak.movie_flix_spring3.dtos.genre.GenreOutputDTO;
 import com.fronchak.movie_flix_spring3.dtos.genre.GenreUpdateDTO;
 import com.fronchak.movie_flix_spring3.services.GenreService;
+import com.fronchak.movie_flix_spring3.util.ConvertionUtil;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/genres")
@@ -28,7 +31,7 @@ public class GenreController {
 	private GenreService service;
 	
 	@PostMapping
-	public ResponseEntity<GenreOutputDTO> save(@RequestBody GenreInsertDTO inputDTO) {
+	public ResponseEntity<GenreOutputDTO> save(@RequestBody @Valid GenreInsertDTO inputDTO) {
 		GenreOutputDTO outputDTO = service.save(inputDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(outputDTO.getId()).toUri();
@@ -36,14 +39,14 @@ public class GenreController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<GenreOutputDTO> update(@RequestBody GenreUpdateDTO inputDTO, @PathVariable Long id) {
-		GenreOutputDTO outputDTO = service.update(inputDTO, id);
+	public ResponseEntity<GenreOutputDTO> update(@RequestBody @Valid GenreUpdateDTO inputDTO, @PathVariable String id) {
+		GenreOutputDTO outputDTO = service.update(inputDTO, ConvertionUtil.convertIdParam(id));
 		return ResponseEntity.ok().body(outputDTO);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<GenreOutputDTO> findById(@PathVariable Long id) {
-		GenreOutputDTO outputDTO = service.findById(id);
+	public ResponseEntity<GenreOutputDTO> findById(@PathVariable String id) {
+		GenreOutputDTO outputDTO = service.findById(ConvertionUtil.convertIdParam(id));
 		return ResponseEntity.ok().body(outputDTO);
 	}
 	
@@ -54,8 +57,8 @@ public class GenreController {
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-		service.deleteById(id);
+	public ResponseEntity<Void> deleteById(@PathVariable String id) {
+		service.deleteById(ConvertionUtil.convertIdParam(id));
 		return ResponseEntity.noContent().build();
 	}
 }

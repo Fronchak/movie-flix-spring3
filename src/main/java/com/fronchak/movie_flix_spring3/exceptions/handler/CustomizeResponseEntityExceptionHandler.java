@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
+import com.fronchak.movie_flix_spring3.exceptions.BadRequestException;
 import com.fronchak.movie_flix_spring3.exceptions.DatabaseException;
 import com.fronchak.movie_flix_spring3.exceptions.ExceptionResponse;
 import com.fronchak.movie_flix_spring3.exceptions.ResourceNotFoundException;
@@ -54,7 +55,7 @@ public class CustomizeResponseEntityExceptionHandler {
 		response.setTimestamp(Instant.now());
 		response.setStatus(status.value());
 		response.setError("Validation Error");
-		response.setMessage(ex.getMessage());
+		response.setMessage("Invalid inputs");
 		response.setPath(request.getDescription(false));
 		
 		for(FieldError field : ex.getBindingResult().getFieldErrors()) {
@@ -69,6 +70,13 @@ public class CustomizeResponseEntityExceptionHandler {
 		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 		ExceptionResponse response = makeResponse(e, request, status, "Internal server error");
 		response.setMessage("Something went wrong");
+		return ResponseEntity.status(status).body(response);
+	}
+	
+	@ExceptionHandler(BadRequestException.class)
+	public ResponseEntity<ExceptionResponse> handleBadRequestException(BadRequestException e, WebRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		ExceptionResponse response = makeResponse(e, request, status, "Bad request");
 		return ResponseEntity.status(status).body(response);
 	}
 }
