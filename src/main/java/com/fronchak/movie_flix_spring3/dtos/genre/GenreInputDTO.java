@@ -9,8 +9,8 @@ public class GenreInputDTO {
 	@NotBlank(message = "Genre's name is required and must be non blank")
 	private String name;
 	
-	@NotNull(message = "Genre's image is required")
-	@Pattern(regexp = "(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)", message = "Image must be a valid url")
+	//@Pattern(regexp = "(http(s?):)(\\.*)", message = "Image must be a valid url")
+	@NotBlank(message = "Genre's image is required and must be non blank")
 	private String imageUrl;
 	
 	public String getName() {

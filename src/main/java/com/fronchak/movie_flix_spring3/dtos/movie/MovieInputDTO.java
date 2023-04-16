@@ -26,9 +26,9 @@ public class MovieInputDTO {
 	@Min(value = 0, message = "Movie's rating cannot be lower than 0")
 	@Max(value = 10, message = "Movie's rating cannot be greater than 10")
 	private Double rating;
-	
-	@NotNull(message = "Movie's image is required")
-	@Pattern(regexp = "(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)", message = "Image must be a valid url")
+
+	//@Pattern(regexp = "(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)", message = "Image must be a valid url")
+	@NotBlank(message = "Movie's image is required and must be non blank")
 	private String imageUrl;
 	
 	@NotEmpty(message = "Movie should have at least one genre")
