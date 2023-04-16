@@ -11,7 +11,7 @@ public class MovieOutputDTO extends MovieSimpleOutputDTO {
 	private static final long serialVersionUID = 1L;
 
 	private String synopsis;
-	private Integer lauchYear;
+	private Integer launchYear;
 	private List<GenreOutputDTO> genres = new ArrayList<>();
 	
 	public MovieOutputDTO() {}
@@ -19,7 +19,7 @@ public class MovieOutputDTO extends MovieSimpleOutputDTO {
 	public MovieOutputDTO(Movie entity) {
 		super(entity);	
 		this.synopsis = entity.getSynopsis();
-		this.lauchYear = entity.getLauchYear();
+		this.launchYear = entity.getLaunchYear();
 	}
 
 	public String getSynopsis() {
@@ -30,12 +30,12 @@ public class MovieOutputDTO extends MovieSimpleOutputDTO {
 		this.synopsis = synopsis;
 	}
 
-	public Integer getLauchYear() {
-		return lauchYear;
+	public Integer getLaunchYear() {
+		return launchYear;
 	}
 
-	public void setLauchYear(Integer lauchYear) {
-		this.lauchYear = lauchYear;
+	public void setLaunchYear(Integer lauchYear) {
+		this.launchYear = lauchYear;
 	}
 
 	public List<GenreOutputDTO> getGenres() {

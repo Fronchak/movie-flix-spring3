@@ -28,8 +28,8 @@ public class Movie {
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String synopsis;
 	
-	@Column(name = "lauch_year", nullable = false)
-	private Integer lauchYear;
+	@Column(name = "launch_year", nullable = false)
+	private Integer launchYear;
 	private Double rating;
 	
 	@Column(columnDefinition = "TEXT", name = "image_url", nullable = false)
@@ -65,12 +65,12 @@ public class Movie {
 		this.synopsis = synopsis;
 	}
 
-	public Integer getLauchYear() {
-		return lauchYear;
+	public Integer getLaunchYear() {
+		return launchYear;
 	}
 
-	public void setLauchYear(Integer lauchYear) {
-		this.lauchYear = lauchYear;
+	public void setLaunchYear(Integer launchYear) {
+		this.launchYear = launchYear;
 	}
 
 	public Double getRating() {

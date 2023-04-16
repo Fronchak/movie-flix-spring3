@@ -19,7 +19,7 @@ public class MovieMapper {
 	public void copyDTOToEntity(MovieInputDTO dto, Movie entity) {
 		entity.setTitle(StringUtil.cleanString(dto.getTitle()));
 		entity.setSynopsis(StringUtil.cleanString(dto.getSynopsis()));
-		entity.setLauchYear(dto.getLauchYear());
+		entity.setLaunchYear(dto.getLaunchYear());
 		entity.setRating(dto.getRating());
 		entity.setImageUrl(dto.getImageUrl());
 	}

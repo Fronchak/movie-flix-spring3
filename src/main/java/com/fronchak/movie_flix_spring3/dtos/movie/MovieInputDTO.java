@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 
 public class MovieInputDTO {
 
@@ -17,10 +16,10 @@ public class MovieInputDTO {
 	@NotBlank(message = "Movie's synopsis is required and must be non blank")
 	private String synopsis;
 	
-	@NotNull(message = "Lauch year is required")
-	@Min(value = 1900, message = "Lauch year must be greater than 1900")
-	@Max(value = 2024, message = "Lauch year cannot be greater than 2024")
-	private Integer lauchYear;
+	@NotNull(message = "Launch year is required")
+	@Min(value = 1900, message = "Launch year must be greater than 1900")
+	@Max(value = 2024, message = "Launch year cannot be greater than 2024")
+	private Integer launchYear;
 	
 	@NotNull(message = "Movie's rating is required")
 	@Min(value = 0, message = "Movie's rating cannot be lower than 0")
@@ -50,12 +49,12 @@ public class MovieInputDTO {
 		this.synopsis = synopsis;
 	}
 
-	public Integer getLauchYear() {
-		return lauchYear;
+	public Integer getLaunchYear() {
+		return launchYear;
 	}
 
-	public void setLauchYear(Integer lauchYear) {
-		this.lauchYear = lauchYear;
+	public void setLaunchYear(Integer launchYear) {
+		this.launchYear = launchYear;
 	}
 
 	public Double getRating() {
