@@ -75,11 +75,13 @@ public class MovieService {
 	@Transactional(readOnly = true)
 	public Page<MovieSimpleOutputDTO> findAll(String title, Long idGenre, Double rating, Pageable pageable) {
 		Page<Movie> entities = movieRepository.findAllFiltered(rating, title, pageable);
+		/*
 		if(!idGenre.equals(0L)) {
 			Genre genre = genreRepository.getReferenceById(idGenre);
 			entities = new PageImpl(entities.filter((entity) -> entity.getGenres().contains(genre)).get()
 					.collect(Collectors.toList()));
 		}
+		*/
 		return mapper.convertEntitiesToSimpleDTOs(entities);
 	}
 	

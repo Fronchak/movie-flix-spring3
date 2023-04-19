@@ -4,6 +4,7 @@ import java.time.Instant;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -77,6 +78,13 @@ public class CustomizeResponseEntityExceptionHandler {
 	public ResponseEntity<ExceptionResponse> handleBadRequestException(BadRequestException e, WebRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		ExceptionResponse response = makeResponse(e, request, status, "Bad request");
+		return ResponseEntity.status(status).body(response);
+	}
+	
+	@ExceptionHandler(BadCredentialsException.class)
+	public ResponseEntity<ExceptionResponse> handleBadRequestException(BadCredentialsException e, WebRequest request) {
+		HttpStatus status = HttpStatus.UNAUTHORIZED;
+		ExceptionResponse response = makeResponse(e, request, status, "Unauthorized");
 		return ResponseEntity.status(status).body(response);
 	}
 }

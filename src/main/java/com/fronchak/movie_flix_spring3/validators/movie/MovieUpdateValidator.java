@@ -42,7 +42,7 @@ public class MovieUpdateValidator implements ConstraintValidator<MovieUpdateVali
 		String title = dto.getTitle();
 		if(title != null && !title.isBlank()) {
 			Movie entity = repository.findByTitle(StringUtil.cleanString(title));
-			if(entity != null) {
+			if(entity != null && !id.equals(entity.getId())) {
 				errors.add(new FieldMessage("title", "This title is already register"));
 			}			
 		}
