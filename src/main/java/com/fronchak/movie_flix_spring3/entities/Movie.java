@@ -6,6 +6,7 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,7 +36,7 @@ public class Movie {
 	@Column(columnDefinition = "TEXT", name = "image_url", nullable = false)
 	private String imageUrl;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "movie_genre",
 			joinColumns = @JoinColumn(name = "id_movie"),
 			inverseJoinColumns = @JoinColumn(name = "id_genre"))

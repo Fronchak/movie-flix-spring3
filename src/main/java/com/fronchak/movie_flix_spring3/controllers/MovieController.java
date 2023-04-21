@@ -57,10 +57,18 @@ public class MovieController {
 	@GetMapping	
 	public ResponseEntity<Page<MovieSimpleOutputDTO>> findAll(
 			@RequestParam(value = "title", defaultValue = "") String title,
-			@RequestParam(value = "idGenre", defaultValue = "0") Long idGenre,
+			@RequestParam(value = "idGenre", defaultValue = "0L") Long idGenre,
 			@RequestParam(value = "rating", defaultValue = "0.0") Double rating,
 			Pageable pageable) {
 		Page<MovieSimpleOutputDTO> dtos = service.findAll(StringUtil.cleanString(title), idGenre, rating, pageable);
+		return ResponseEntity.ok().body(dtos);
+	}
+	
+	@GetMapping(value = "/genre")
+	public ResponseEntity<Page<MovieSimpleOutputDTO>> findAllByGenre(
+			@RequestParam(value = "idGenre", defaultValue = "0") Long idGenre,
+			Pageable pageable) {
+		Page<MovieSimpleOutputDTO> dtos = service.findAllByGenre(idGenre, pageable);
 		return ResponseEntity.ok().body(dtos);
 	}
 	

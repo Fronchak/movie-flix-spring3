@@ -44,6 +44,7 @@ public class SecurityConfig {
 			.requestMatchers(HttpMethod.DELETE, entities).hasRole(ADMIN)
 			.requestMatchers(HttpMethod.POST, entities).hasAnyRole(WORKER, ADMIN)
 			.requestMatchers(HttpMethod.PUT, entities).hasAnyRole(WORKER, ADMIN)
+			.requestMatchers(HttpMethod.GET, "/movies/genre").permitAll()
 			.requestMatchers(HttpMethod.GET, "/movies/{id}", "/genres/{id}").authenticated()
 			.requestMatchers(HttpMethod.GET, entities).permitAll();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

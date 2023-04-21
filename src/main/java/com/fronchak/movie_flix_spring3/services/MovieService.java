@@ -85,6 +85,12 @@ public class MovieService {
 		return mapper.convertEntitiesToSimpleDTOs(entities);
 	}
 	
+	public Page<MovieSimpleOutputDTO> findAllByGenre(Long idGenre, Pageable pageable) {
+		Genre genre = (idGenre == 0) ? null : genreRepository.getReferenceById(idGenre);
+		Page<Movie> entities = movieRepository.findMovies(genre, pageable);
+		return mapper.convertEntitiesToSimpleDTOs(entities);
+	}
+	
 	public void deleteById(Long id) {
 		try {
 			movieRepository.deleteById(id);

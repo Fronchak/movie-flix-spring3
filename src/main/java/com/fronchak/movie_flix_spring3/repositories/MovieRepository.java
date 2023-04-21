@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.fronchak.movie_flix_spring3.entities.Genre;
 import com.fronchak.movie_flix_spring3.entities.Movie;
 
 @Repository
@@ -18,4 +19,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 			"AND " +
 			"(UPPER(obj.title) LIKE UPPER( CONCAT('%', :title , '%')))")
 	Page<Movie> findAllFiltered(Double rating, String title, Pageable pageable);
+	
+	@Query("SELECT DISTINCT obj FROM Movie obj INNER JOIN obj.genres genr WHERE " +
+			"(:genre IS NULL OR :genre IN genr)")
+	Page<Movie> findMovies(Genre genre, Pageable pageable);
 }
